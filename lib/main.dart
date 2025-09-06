@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Calculator RMB',
+      title: "Calculator RMB",
       theme: ThemeData.dark(useMaterial3: true),
       home: const MyHomePage(),
     );
@@ -25,20 +25,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _height = TextEditingController(),
-      _weight = TextEditingController(),
-      _age = TextEditingController();
-  var _gender = false,
-      _activeStatus = false,
-      _request = false,
-      _rmb = 0.0,
-      _rma = 0.0,
-      _nm = 0.0,
-      _proteina = 0.0;
+  final _height = TextEditingController();
+  final _weight = TextEditingController();
+  final _age = TextEditingController();
+  var _gender = false;
+  var _activeStatus = false;
+  var _request = false;
+  var _rmb = 0.0;
+  var _rma = 0.0;
+  var _nm = 0.0;
+  var _proteina = 0.0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Calculator')),
+      appBar: AppBar(title: const Text("Calculator")),
       floatingActionButton: FloatingActionButton(
         onPressed: _calculate,
         child: const Icon(Icons.calculate),
@@ -47,50 +47,50 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         children: [
           TextField(
-            decoration: const InputDecoration(labelText: 'Inaltime'),
+            decoration: const InputDecoration(labelText: "Inaltime"),
             controller: _height,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\.?\d{0,2}'))
+              FilteringTextInputFormatter.allow(RegExp(r"^(\d+)?\.?\d{0,2}")),
             ],
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: TextField(
-              decoration: const InputDecoration(labelText: 'Greutate'),
+              decoration: const InputDecoration(labelText: "Greutate"),
               controller: _weight,
               keyboardType:
                   const TextInputType.numberWithOptions(decimal: true),
               inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\.?\d{0,2}'))
+                FilteringTextInputFormatter.allow(RegExp(r"^(\d+)?\.?\d{0,2}")),
               ],
             ),
           ),
           TextField(
-            decoration: const InputDecoration(labelText: 'Varsta'),
+            decoration: const InputDecoration(labelText: "Varsta"),
             controller: _age,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\.?\d{0,2}'))
+              FilteringTextInputFormatter.allow(RegExp(r"^(\d+)?\.?\d{0,2}")),
             ],
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: SwitchListTile(
-              title: Text(_gender ? 'Femeie' : 'Barbat'),
+              title: Text(_gender ? "Femeie" : "Barbat"),
               value: _gender,
               onChanged: (x) => setState(() => _gender = x),
             ),
           ),
           SwitchListTile(
-            title: Text(_activeStatus ? 'Activ' : 'Sedentar'),
+            title: Text(_activeStatus ? "Activ" : "Sedentar"),
             value: _activeStatus,
             onChanged: (x) => setState(() => _activeStatus = x),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: SwitchListTile(
-              title: Text(_request ? 'Crestere' : 'Scadere'),
+              title: Text(_request ? "Crestere" : "Scadere"),
               value: _request,
               onChanged: (x) => setState(() => _request = x),
             ),
@@ -98,10 +98,10 @@ class _MyHomePageState extends State<MyHomePage> {
           Center(
             child: Column(
               children: [
-                'RMB: ${_rmb.toStringAsFixed(2)}',
-                'RMA: ${_rma.toStringAsFixed(2)}',
-                'Numar Magic: ${_nm.toStringAsFixed(2)}',
-                'Proteina: ${_proteina.toStringAsFixed(2)}',
+                "RMB: ${_rmb.toStringAsFixed(2)}",
+                "RMA: ${_rma.toStringAsFixed(2)}",
+                "Numar Magic: ${_nm.toStringAsFixed(2)}",
+                "Proteina: ${_proteina.toStringAsFixed(2)}",
               ]
                   .map(
                     (e) => Text(e, style: const TextStyle(fontSize: 20)),
