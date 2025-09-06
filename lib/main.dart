@@ -25,42 +25,30 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TextEditingController height = TextEditingController();
-  TextEditingController weight = TextEditingController();
-  TextEditingController age = TextEditingController();
-  bool gender = false;
-  bool activeStatus = false;
-  bool request = false;
-  double rmb = 0;
-  double rma = 0;
-  double nm = 0;
-  double proteina = 0;
+  final _height = TextEditingController(),
+      _weight = TextEditingController(),
+      _age = TextEditingController();
+  var _gender = false,
+      _activeStatus = false,
+      _request = false,
+      _rmb = 0.0,
+      _rma = 0.0,
+      _nm = 0.0,
+      _proteina = 0.0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Calculator')),
       floatingActionButton: FloatingActionButton(
+        onPressed: _calculate,
         child: const Icon(Icons.calculate),
-        onPressed: () => setState(() {
-          rmb = 10 * double.parse(weight.text) +
-              6.25 * double.parse(height.text) -
-              5 * double.parse(age.text) +
-              (gender ? -161 : 5);
-          if (activeStatus) {
-            rma = rmb * (gender ? 1.25 : 1.3);
-          } else {
-            rma = rmb + (gender ? 250 : 300);
-          }
-          nm = rma + (request ? 500 : -500);
-          proteina = double.parse(weight.text) * 1.4;
-        }),
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         children: [
           TextField(
             decoration: const InputDecoration(labelText: 'Inaltime'),
-            controller: height,
+            controller: _height,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\.?\d{0,2}'))
@@ -70,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: TextField(
               decoration: const InputDecoration(labelText: 'Greutate'),
-              controller: weight,
+              controller: _weight,
               keyboardType:
                   const TextInputType.numberWithOptions(decimal: true),
               inputFormatters: [
@@ -80,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           TextField(
             decoration: const InputDecoration(labelText: 'Varsta'),
-            controller: age,
+            controller: _age,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\.?\d{0,2}'))
@@ -89,48 +77,60 @@ class _MyHomePageState extends State<MyHomePage> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: SwitchListTile(
-              title: Text(gender ? 'Femeie' : 'Barbat'),
-              value: gender,
-              onChanged: (x) => setState(() => gender = x),
+              title: Text(_gender ? 'Femeie' : 'Barbat'),
+              value: _gender,
+              onChanged: (x) => setState(() => _gender = x),
             ),
           ),
           SwitchListTile(
-            title: Text(activeStatus ? 'Activ' : 'Sedentar'),
-            value: activeStatus,
-            onChanged: (x) => setState(() => activeStatus = x),
+            title: Text(_activeStatus ? 'Activ' : 'Sedentar'),
+            value: _activeStatus,
+            onChanged: (x) => setState(() => _activeStatus = x),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: SwitchListTile(
-              title: Text(request ? 'Crestere' : 'Scadere'),
-              value: request,
-              onChanged: (x) => setState(() => request = x),
+              title: Text(_request ? 'Crestere' : 'Scadere'),
+              value: _request,
+              onChanged: (x) => setState(() => _request = x),
             ),
           ),
           Center(
             child: Column(
               children: [
-                Text(
-                  'RMB: ${rmb.toStringAsFixed(2)}',
-                  style: const TextStyle(fontSize: 20),
-                ),
-                Text(
-                  'RMA: ${rma.toStringAsFixed(2)}',
-                  style: const TextStyle(fontSize: 20),
-                ),
-                Text(
-                  'Numar Magic: ${nm.toStringAsFixed(2)}',
-                  style: const TextStyle(fontSize: 20),
-                ),
-                Text(
-                  'Proteina: ${proteina.toStringAsFixed(2)}',
-                  style: const TextStyle(fontSize: 20),
-                ),
-              ],
+                'RMB: ${_rmb.toStringAsFixed(2)}',
+                'RMA: ${_rma.toStringAsFixed(2)}',
+                'Numar Magic: ${_nm.toStringAsFixed(2)}',
+                'Proteina: ${_proteina.toStringAsFixed(2)}',
+              ]
+                  .map(
+                    (e) => Text(e, style: const TextStyle(fontSize: 20)),
+                  )
+                  .toList(),
             ),
           ),
         ],
       ),
     );
+  }
+
+  void _calculate() {
+    final w = double.parse(_weight.text);
+    setState(() {
+      _rmb = 10 * w +
+          6.25 * double.parse(_height.text) -
+          5 * double.parse(_age.text) +
+          (_gender ? -161 : 5);
+      final v = _activeStatus
+          ? _gender
+              ? 1.25
+              : 1.3
+          : _gender
+              ? 250
+              : 300;
+      _rma = _rmb * v;
+      _nm = _rma + (_request ? 500 : -500);
+      _proteina = w * 1.4;
+    });
   }
 }
