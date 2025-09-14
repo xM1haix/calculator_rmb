@@ -5,7 +5,18 @@ void main() {
   runApp(const MyApp());
 }
 
+///Home page
+class Home extends StatefulWidget {
+  ///
+  const Home({super.key});
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+///Main skelethon of the app
+
 class MyApp extends StatelessWidget {
+  ///
   const MyApp({super.key});
 
   @override
@@ -13,18 +24,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Calculator RMB",
       theme: ThemeData.dark(useMaterial3: true),
-      home: const MyHomePage(),
+      home: const Home(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _HomeState extends State<Home> {
   final _height = TextEditingController();
   final _weight = TextEditingController();
   final _age = TextEditingController();
